@@ -1,0 +1,63 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.github.geiss</groupId>
+    <artifactId>xls2ora</artifactId>
+    <version>1.1.0</version>
+    <packaging>jar</packaging>
+
+    <name>xls2ora</name>
+    <description>Wizard based utility to import a sheet from a .xls File into an Oracle Database.</description>
+    <url>http://www.github.com/mgeiss/xls2ora</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git@github.com:mgeiss/xls2ora.git</connection>
+        <developerConnection>scm:git:git@github.com:mgeiss/xls2ora.git</developerConnection>
+        <url>git@github.com:mgeiss/xls2ora.git</url>
+    </scm>
+    
+    <developers>
+        <developer>
+            <id>mgeiss</id>
+            <name>Markus Geiss</name>
+            <email>mgeiss257@googlemail.com</email>
+        </developer>
+    </developers>
+    
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
