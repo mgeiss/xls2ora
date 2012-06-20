@@ -80,9 +80,9 @@ public class WorkflowController implements ActionListener {
         this.contentContainer.setBackButtonEnabled(false);
         this.contentContainer.switchNext(false);
 
-        JFrame frame = new JFrame("Excelimport");
+        JFrame frame = new JFrame("xls2ora - Excelimport");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setIconImage(new ImageIcon("/org/geiss/tools/e11t/resource/image/icon_itac_logo.png").getImage());
+        frame.setIconImage(new ImageIcon(ClassLoader.getSystemResource("icons/wizard.png")).getImage());
         frame.setContentPane(this.contentContainer);
         frame.setSize(new Dimension(520, 300));
         frame.setResizable(false);

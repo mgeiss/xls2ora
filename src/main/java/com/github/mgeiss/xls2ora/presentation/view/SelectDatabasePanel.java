@@ -45,7 +45,7 @@ public class SelectDatabasePanel extends WizardPanel implements ActionListener {
 	private JLabel statusTestLabel;
 	
 	public SelectDatabasePanel(WorkflowController workflowController, SelectSourcePanel sourcePanel) {
-		super(workflowController, "Zieldatenbank", "Geben sie die Verbindungsinformationen zur DB und die Zieltabelle an.", new ImageIcon(SelectDatabasePanel.class.getResource("/org/geiss/tools/e11t/resource/image/database.png")));
+		super(workflowController, "Zieldatenbank", "Geben sie die Verbindungsinformationen zur DB und die Zieltabelle an.", new ImageIcon(ClassLoader.getSystemResource("icons/database.png")));
 		this.sourcePanel = sourcePanel;
 		this.init();
 	}

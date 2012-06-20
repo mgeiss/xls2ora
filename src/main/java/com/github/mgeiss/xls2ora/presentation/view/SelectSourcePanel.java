@@ -44,7 +44,7 @@ public class SelectSourcePanel extends WizardPanel implements ActionListener {
     private JTextField sheetField;
 
     public SelectSourcePanel(WorkflowController workflowController) {
-        super(workflowController, "Quelldatei", "Wählen sie eine Excel-Datei und geben das Tabellenblatt an.", new ImageIcon(SelectSourcePanel.class.getResource("/org/geiss/tools/e11t/resource/image/spreadsheet.png")));
+        super(workflowController, "Quelldatei", "Wählen sie eine Excel-Datei und geben das Tabellenblatt an.", new ImageIcon(ClassLoader.getSystemResource("icons/spreadsheet.png")));
         this.init();
     }
 
@@ -60,7 +60,7 @@ public class SelectSourcePanel extends WizardPanel implements ActionListener {
         content.add(this.fileField,
                 new GridBagConstraints(1, 0, 1, 1, 0.00D, 0.00D, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(10, 5, 0, 0), 0, 0));
 
-        JButton fileChooserButton = new JButton(new ImageIcon(SelectSourcePanel.class.getResource("/org/geiss/tools/e11t/resource/image/filefind.png")));
+        JButton fileChooserButton = new JButton(new ImageIcon(ClassLoader.getSystemResource("icons/filefind.png")));
         fileChooserButton.setPreferredSize(new Dimension(23, 23));
         fileChooserButton.setMargin(new Insets(3, 3, 3, 3));
         fileChooserButton.addActionListener(this);

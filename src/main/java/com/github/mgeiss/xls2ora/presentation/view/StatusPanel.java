@@ -34,7 +34,7 @@ public class StatusPanel extends WizardPanel {
 	private JPanel transferPanel;
     
 	public StatusPanel(WorkflowController workflowController) {
-		super(workflowController, "Import", "Die Daten können nun übertragen werden.", new ImageIcon(StatusPanel.class.getResource("/org/geiss/tools/e11t/resource/image/run.png")));
+		super(workflowController, "Import", "Die Daten können nun übertragen werden.", new ImageIcon(ClassLoader.getSystemResource("icons/run.png")));
 		this.init();
 	}
 	

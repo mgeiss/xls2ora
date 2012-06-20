@@ -58,7 +58,7 @@ public class MappingPanel extends WizardPanel implements ActionListener, ListSel
     private JXTable table;
 
     public MappingPanel(WorkflowController workflowController, SelectDatabasePanel databasePanel) {
-        super(workflowController, "Zuordnung", "Ordnen sie die Spalten der Excel-Tabelle den Spalten der DB-Tabelle zu.", new ImageIcon(MappingPanel.class.getResource("/org/geiss/tools/e11t/resource/image/mapping.png")));
+        super(workflowController, "Zuordnung", "Ordnen sie die Spalten der Excel-Tabelle den Spalten der DB-Tabelle zu.", new ImageIcon(ClassLoader.getSystemResource("icons/mapping.png")));
         this.databasePanel = databasePanel;
         this.init();
     }
@@ -70,17 +70,17 @@ public class MappingPanel extends WizardPanel implements ActionListener, ListSel
         tableControl.setRollover(true);
         tableControl.setFloatable(false);
 
-        this.addButton = new JButton(new ImageIcon(MappingPanel.class.getResource("/org/geiss/tools/e11t/resource/image/table_add.png")));
+        this.addButton = new JButton(new ImageIcon(ClassLoader.getSystemResource("icons/table_add.png")));
         this.addButton.setToolTipText("Zuordnung hinzufügen");
         this.addButton.addActionListener(this);
         tableControl.add(addButton);
 
-        this.addDefaultButton = new JButton(new ImageIcon(MappingPanel.class.getResource("/org/geiss/tools/e11t/resource/image/table_edit.png")));
+        this.addDefaultButton = new JButton(new ImageIcon(ClassLoader.getSystemResource("icons/table_edit.png")));
         this.addDefaultButton.setToolTipText("Vorgabewert hinzufügen");
         this.addDefaultButton.addActionListener(this);
         tableControl.add(addDefaultButton);
 
-        this.removeButton = new JButton(new ImageIcon(MappingPanel.class.getResource("/org/geiss/tools/e11t/resource/image/table_delete.png")));
+        this.removeButton = new JButton(new ImageIcon(ClassLoader.getSystemResource("icons/table_delete.png")));
         this.removeButton.setToolTipText("Eintrag entfernen");
         this.removeButton.addActionListener(this);
         this.removeButton.setEnabled(false);
@@ -257,9 +257,9 @@ public class MappingPanel extends WizardPanel implements ActionListener, ListSel
             }
 
             Connection databaseConnection = (Connection) super.workflowController.getAttribute("databaseConnection");
-            Statement databaseStmt = databaseConnection.createStatement();
-            databaseStmt.execute(createSQL.toString());
-            databaseStmt.close();
+            try (Statement databaseStmt = databaseConnection.createStatement()) {
+                databaseStmt.execute(createSQL.toString());
+            }
         } catch (Exception ex) {
             JXErrorPane.showDialog(null, new ErrorInfo("Datenbankfehler!", "Tabelle " + super.workflowController.getAttribute("targetTable") + " konnte nicht erzeugt werden.!", null, null, ex, Level.SEVERE, System.getenv()));
             throw new IllegalStateException();
