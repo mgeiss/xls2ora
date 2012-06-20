@@ -16,6 +16,7 @@
 package com.github.mgeiss.xls2ora.presentation.control;
 
 import com.github.mgeiss.xls2ora.presentation.view.ContentContainer;
+import com.github.mgeiss.xls2ora.presentation.view.WizardPanel;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -16,6 +16,7 @@
 package com.github.mgeiss.xls2ora.business;
 
 import com.github.mgeiss.xls2ora.domain.ColumnMapping;
+import com.github.mgeiss.xls2ora.presentation.control.WorkflowController;
 import java.awt.HeadlessException;
 import java.sql.*;
 import java.util.List;
