@@ -16,6 +16,7 @@
 package com.github.mgeiss.xls2ora.presentation.view;
 
 import com.github.mgeiss.xls2ora.presentation.control.WorkflowController;
+import com.github.mgeiss.xls2ora.util.Messages;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -44,14 +45,14 @@ public class SelectSourcePanel extends WizardPanel implements ActionListener {
     private JTextField sheetField;
 
     public SelectSourcePanel(WorkflowController workflowController) {
-        super(workflowController, "Quelldatei", "Wählen sie eine Excel-Datei und geben das Tabellenblatt an.", new ImageIcon(ClassLoader.getSystemResource("icons/spreadsheet.png")));
+        super(workflowController, Messages.getText("xls2ora.selectsource.panel.title"), Messages.getText("xls2ora.selectsource.panel.hint"), new ImageIcon(ClassLoader.getSystemResource("icons/spreadsheet.png")));
         this.init();
     }
 
     private void init() {
         JPanel content = new JPanel(new GridBagLayout());
 
-        content.add(new JLabel("Excel-Datei:"),
+        content.add(new JLabel(Messages.getText("xls2ora.selectsource.panel.excelfile")),
                 new GridBagConstraints(0, 0, 1, 1, 0.00D, 0.00D, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(10, 10, 0, 5), 0, 0));
 
         this.fileField = new JTextField();
@@ -67,7 +68,7 @@ public class SelectSourcePanel extends WizardPanel implements ActionListener {
         content.add(fileChooserButton,
                 new GridBagConstraints(2, 0, 1, 1, 0.00D, 0.00D, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(10, 5, 0, 5), 0, 0));
 
-        content.add(new JLabel("Tabelle:"),
+        content.add(new JLabel(Messages.getText("xls2ora.selectsource.panel.sheet")),
                 new GridBagConstraints(0, 1, 1, 1, 0.00D, 0.00D, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(5, 10, 5, 5), 0, 0));
 
         this.sheetField = new JTextField();
@@ -102,7 +103,7 @@ public class SelectSourcePanel extends WizardPanel implements ActionListener {
     @Override
     public void proceed() {
         if (this.fileField.getText().length() == 0 || this.sheetField.getText().length() == 0) {
-            JOptionPane.showMessageDialog(this, "Bitte überprüfen sie ihre Angaben zur Quelldatei!", "Datei konnte nicht geladen werden!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, Messages.getText("xls2ora.selectsource.panel.error.dialog.title"), Messages.getText("xls2ora.selectsource.panel.error.dialog.checkfile"), JOptionPane.ERROR_MESSAGE);
             throw new IllegalStateException();
         }
         try {
@@ -111,7 +112,7 @@ public class SelectSourcePanel extends WizardPanel implements ActionListener {
             super.workflowController.setAttribute("sheet", this.sheetField.getText());
             super.workflowController.setAttribute("excelConnection", connection);
         } catch (ClassNotFoundException | SQLException ex) {
-            JXErrorPane.showDialog(null, new ErrorInfo("Datei konnte nicht geladen werden!", "Bitte überprüfen sie ihre Angaben zur Quelldatei!", null, null, ex, Level.SEVERE, System.getenv()));
+            JXErrorPane.showDialog(null, new ErrorInfo(Messages.getText("xls2ora.selectsource.panel.error.dialog.title"), Messages.getText("xls2ora.selectsource.panel.error.dialog.checkfile"), null, null, ex, Level.SEVERE, System.getenv()));
         }
     }
 
@@ -133,7 +134,7 @@ public class SelectSourcePanel extends WizardPanel implements ActionListener {
 
             @Override
             public String getDescription() {
-                return "Excel-Dateien (*.xls)";
+                return Messages.getText("xls2ora.selectsource.panel.filechooser");
             }
         });
 

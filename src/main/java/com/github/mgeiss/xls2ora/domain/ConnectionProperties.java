@@ -81,25 +81,21 @@ public class ConnectionProperties implements Serializable {
         this.password = password;
     }
 
-    public Connection getConnection() {
+    public Connection getConnection() throws ClassNotFoundException, SQLException {
         if (this.connection == null) {
-            try {
-                Class.forName("oracle.jdbc.OracleDriver");
+            Class.forName("oracle.jdbc.OracleDriver");
 
-                StringBuilder connectionString = new StringBuilder();
-                connectionString.append("jdbc:oracle:thin:");
-                connectionString.append("@");
-                connectionString.append(this.host);
-                connectionString.append(":");
-                connectionString.append(this.port);
-                connectionString.append(":");
-                connectionString.append(this.service);
+            StringBuilder connectionString = new StringBuilder();
+            connectionString.append("jdbc:oracle:thin:");
+            connectionString.append("@");
+            connectionString.append(this.host);
+            connectionString.append(":");
+            connectionString.append(this.port);
+            connectionString.append(":");
+            connectionString.append(this.service);
 
-                this.connection = DriverManager.getConnection(connectionString.toString(), this.user, new String(this.password));
-                this.connection.setAutoCommit(false);
-            } catch (ClassNotFoundException | SQLException ex) {
-                JXErrorPane.showDialog(null, new ErrorInfo("Verbindungsaufbau fehlgeschlagen!", "Bitte überprüfen sie ihre Angaben zur Zieldatenbank!", null, null, ex, Level.SEVERE, System.getenv()));
-            }
+            this.connection = DriverManager.getConnection(connectionString.toString(), this.user, new String(this.password));
+            this.connection.setAutoCommit(false);
         }
 
         return this.connection;

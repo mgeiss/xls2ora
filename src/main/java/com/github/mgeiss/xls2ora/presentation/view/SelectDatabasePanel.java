@@ -22,7 +22,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.sql.SQLException;
+import java.util.logging.Level;
 import javax.swing.*;
+import org.jdesktop.swingx.JXErrorPane;
+import org.jdesktop.swingx.error.ErrorInfo;
 
 /**
  *
@@ -176,33 +180,37 @@ public class SelectDatabasePanel extends WizardPanel implements ActionListener {
         this.connectionProperties.setUser(this.userField.getText());
         this.connectionProperties.setPassword(this.passwordField.getPassword());
 
-        if (this.connectionProperties.getConnection() == null) {
-            super.workflowController.setAttribute("databaseConnection", null);
-            super.workflowController.setAttribute("targetTable", null);
-            this.statusTestLabel.setForeground(Color.RED);
-            this.statusTestLabel.setText(Messages.getText("xls2ora.selectdb.panel.connectiontestfailed"));
-        } else {
-            try {
-                if (!SelectDatabasePanel.DB_PROPERTIES_FILE.exists()) {
-                    File dir = new File(System.getProperty("user.home") + "/e11t");
-                    if (!dir.exists()) {
-                        dir.mkdir();
+        try {
+            if (this.connectionProperties.getConnection() == null) {
+                super.workflowController.setAttribute("databaseConnection", null);
+                super.workflowController.setAttribute("targetTable", null);
+                this.statusTestLabel.setForeground(Color.RED);
+                this.statusTestLabel.setText(Messages.getText("xls2ora.selectdb.panel.connectiontestfailed"));
+            } else {
+                try {
+                    if (!SelectDatabasePanel.DB_PROPERTIES_FILE.exists()) {
+                        File dir = new File(System.getProperty("user.home") + "/e11t");
+                        if (!dir.exists()) {
+                            dir.mkdir();
+                        }
+                        SelectDatabasePanel.DB_PROPERTIES_FILE.createNewFile();
                     }
-                    SelectDatabasePanel.DB_PROPERTIES_FILE.createNewFile();
+                    FileOutputStream fout = new FileOutputStream(SelectDatabasePanel.DB_PROPERTIES_FILE);
+                    try (ObjectOutputStream oos = new ObjectOutputStream(fout)) {
+                        oos.writeObject(this.connectionProperties);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                FileOutputStream fout = new FileOutputStream(SelectDatabasePanel.DB_PROPERTIES_FILE);
-                try (ObjectOutputStream oos = new ObjectOutputStream(fout)) {
-                    oos.writeObject(this.connectionProperties);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
 
-            super.workflowController.setAttribute("databaseConnection", this.connectionProperties.getConnection());
-            super.workflowController.setAttribute("targetTable", this.tableField.getText());
-            this.statusTestLabel.setForeground(this.defaultLabelColor);
-            this.statusTestLabel.setText(Messages.getText("xls2ora.selectdb.panel.connectiontestsucceeded"));
-        }
+                super.workflowController.setAttribute("databaseConnection", this.connectionProperties.getConnection());
+                super.workflowController.setAttribute("targetTable", this.tableField.getText());
+                this.statusTestLabel.setForeground(this.defaultLabelColor);
+                this.statusTestLabel.setText(Messages.getText("xls2ora.selectdb.panel.connectiontestsucceeded"));
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+                 JXErrorPane.showDialog(null, new ErrorInfo(Messages.getText("xls2ora.selectdb.panel.error.dialog.title"), Messages.getText("xls2ora.selectdb.panel.error.dialog.checkdb"), null, null, ex, Level.SEVERE, System.getenv()));
+       }
     }
 
     @Override
