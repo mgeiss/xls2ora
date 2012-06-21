@@ -15,6 +15,7 @@
  */
 package com.github.mgeiss.xls2ora.presentation.view;
 
+import com.github.mgeiss.xls2ora.util.Messages;
 import java.awt.*;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -43,7 +44,7 @@ public class CreateColumnDefaultValuePanel extends JPanel {
 		JPanel selectionPanel = new JPanel(new GridBagLayout());
 		contentPanel.add(selectionPanel, BorderLayout.CENTER);
 		
-		selectionPanel.add(new JLabel("DB-Spalte:"), 
+		selectionPanel.add(new JLabel(Messages.getText("xls2ora.createdefaultvalue.panel.dbcolumn")), 
 				new GridBagConstraints(0, 0, 1, 1, 0.00D, 0.00D, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 1, 1));
 
 		this.datbaseColumnComboBox = new JComboBox(this.mappingPanel.tableColumns.toArray());
@@ -52,7 +53,7 @@ public class CreateColumnDefaultValuePanel extends JPanel {
 		selectionPanel.add(this.datbaseColumnComboBox, 
 				new GridBagConstraints(1, 0, 1, 1, 0.00D, 0.00D, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 1, 1));
 
-		selectionPanel.add(new JLabel("Vorgabewert:"), 
+		selectionPanel.add(new JLabel(Messages.getText("xls2ora.createdefaultvalue.panel.default")), 
 				new GridBagConstraints(2, 0, 1, 1, 0.00D, 0.00D, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 10, 0, 0), 1, 1));
 
 		this.columnField = new JTextField();

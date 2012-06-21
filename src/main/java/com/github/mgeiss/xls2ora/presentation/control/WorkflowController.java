@@ -17,6 +17,7 @@ package com.github.mgeiss.xls2ora.presentation.control;
 
 import com.github.mgeiss.xls2ora.presentation.view.ContentContainer;
 import com.github.mgeiss.xls2ora.presentation.view.WizardPanel;
+import com.github.mgeiss.xls2ora.util.Messages;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -80,7 +81,7 @@ public class WorkflowController implements ActionListener {
         this.contentContainer.setBackButtonEnabled(false);
         this.contentContainer.switchNext(false);
 
-        JFrame frame = new JFrame("xls2ora - Excelimport");
+        JFrame frame = new JFrame(Messages.getText("xls2ora.frame.title"));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setIconImage(new ImageIcon(ClassLoader.getSystemResource("icons/wizard.png")).getImage());
         frame.setContentPane(this.contentContainer);

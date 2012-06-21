@@ -16,6 +16,7 @@
 package com.github.mgeiss.xls2ora.presentation.view;
 
 import com.github.mgeiss.xls2ora.presentation.control.WorkflowController;
+import com.github.mgeiss.xls2ora.util.Messages;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -63,10 +64,10 @@ public class ContentContainer extends JPanel {
     public void switchNext(boolean done) {
         if (done) {
             this.nextButton.setActionCommand(WorkflowController.ACTION_DONE);
-            this.nextButton.setText("Fertig");
+            this.nextButton.setText(Messages.getText("xls2ora.contentcontainer.done"));
         } else {
             this.nextButton.setActionCommand(WorkflowController.ACTION_NEXT);
-            this.nextButton.setText("Weiter>");
+            this.nextButton.setText(Messages.getText("xls2ora.contentcontainer.next"));
         }
     }
 
@@ -79,12 +80,12 @@ public class ContentContainer extends JPanel {
     private JPanel getButtonPanel() {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 
-        this.backButton = new JButton("<Zurück");
+        this.backButton = new JButton(Messages.getText("xls2ora.contentcontainer.back"));
         this.backButton.addActionListener(this.workflowController);
         this.backButton.setActionCommand(WorkflowController.ACTION_BACK);
         buttonPanel.add(this.backButton);
 
-        this.nextButton = new JButton("Weiter>");
+        this.nextButton = new JButton(Messages.getText("xls2ora.contentcontainer.next"));
         this.nextButton.addActionListener(this.workflowController);
         this.nextButton.setActionCommand(WorkflowController.ACTION_NEXT);
         buttonPanel.add(this.nextButton);
@@ -96,7 +97,7 @@ public class ContentContainer extends JPanel {
         spacerLabel.setPreferredSize(spacerDimension);
         buttonPanel.add(spacerLabel);
 
-        JButton cancelButton = new JButton("Abbrechen");
+        JButton cancelButton = new JButton(Messages.getText("xls2ora.contentcontainer.cancel"));
         cancelButton.addActionListener(this.workflowController);
         cancelButton.setActionCommand(WorkflowController.ACTION_CANCEL);
         buttonPanel.add(cancelButton);

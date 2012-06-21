@@ -15,6 +15,7 @@
  */
 package com.github.mgeiss.xls2ora.presentation.view;
 
+import com.github.mgeiss.xls2ora.util.Messages;
 import java.awt.*;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -42,7 +43,7 @@ public class CreateColumnMappingPanel extends JPanel {
 		JPanel selectionPanel = new JPanel(new GridBagLayout());
 		contentPanel.add(selectionPanel, BorderLayout.CENTER);
 		
-		selectionPanel.add(new JLabel("DB-Spalte:"), 
+		selectionPanel.add(new JLabel(Messages.getText("xls2ora.createcolumnmapping.panel.dbcolumn")), 
 				new GridBagConstraints(0, 0, 1, 1, 0.00D, 0.00D, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 1, 1));
 
 		this.datbaseColumnComboBox = new JComboBox(this.mappingPanel.tableColumns.toArray());
@@ -51,7 +52,7 @@ public class CreateColumnMappingPanel extends JPanel {
 		selectionPanel.add(this.datbaseColumnComboBox, 
 				new GridBagConstraints(1, 0, 1, 1, 0.00D, 0.00D, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 5, 0, 0), 1, 1));
 
-		selectionPanel.add(new JLabel("Excel-Spalte:"), 
+		selectionPanel.add(new JLabel(Messages.getText("xls2ora.createcolumnmapping.panel.excelcolumn")), 
 				new GridBagConstraints(2, 0, 1, 1, 0.00D, 0.00D, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 10, 0, 0), 1, 1));
 
 		this.sheetColumnComboBox = new JComboBox(this.mappingPanel.sheetColumns.toArray());

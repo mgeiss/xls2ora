@@ -19,6 +19,7 @@ import com.github.mgeiss.xls2ora.domain.ColumnData;
 import com.github.mgeiss.xls2ora.domain.ColumnMapping;
 import com.github.mgeiss.xls2ora.presentation.control.WorkflowController;
 import com.github.mgeiss.xls2ora.presentation.model.ColumnMappingTableModel;
+import com.github.mgeiss.xls2ora.util.Messages;
 import java.awt.BorderLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
@@ -58,7 +59,7 @@ public class MappingPanel extends WizardPanel implements ActionListener, ListSel
     private JXTable table;
 
     public MappingPanel(WorkflowController workflowController, SelectDatabasePanel databasePanel) {
-        super(workflowController, "Zuordnung", "Ordnen sie die Spalten der Excel-Tabelle den Spalten der DB-Tabelle zu.", new ImageIcon(ClassLoader.getSystemResource("icons/mapping.png")));
+        super(workflowController, Messages.getText("xls2ora.mapping.panel.title"), Messages.getText("xls2ora.mapping.panel.hint"), new ImageIcon(ClassLoader.getSystemResource("icons/mapping.png")));
         this.databasePanel = databasePanel;
         this.init();
     }
@@ -71,17 +72,17 @@ public class MappingPanel extends WizardPanel implements ActionListener, ListSel
         tableControl.setFloatable(false);
 
         this.addButton = new JButton(new ImageIcon(ClassLoader.getSystemResource("icons/table_add.png")));
-        this.addButton.setToolTipText("Zuordnung hinzufügen");
+        this.addButton.setToolTipText(Messages.getText("xls2ora.mapping.panel.addmapping"));
         this.addButton.addActionListener(this);
         tableControl.add(addButton);
 
         this.addDefaultButton = new JButton(new ImageIcon(ClassLoader.getSystemResource("icons/table_edit.png")));
-        this.addDefaultButton.setToolTipText("Vorgabewert hinzufügen");
+        this.addDefaultButton.setToolTipText(Messages.getText("xls2ora.mapping.panel.adddefault"));
         this.addDefaultButton.addActionListener(this);
         tableControl.add(addDefaultButton);
 
         this.removeButton = new JButton(new ImageIcon(ClassLoader.getSystemResource("icons/table_delete.png")));
-        this.removeButton.setToolTipText("Eintrag entfernen");
+        this.removeButton.setToolTipText(Messages.getText("xls2ora.mapping.panel.removemapping"));
         this.removeButton.addActionListener(this);
         this.removeButton.setEnabled(false);
         tableControl.add(removeButton);
@@ -100,7 +101,7 @@ public class MappingPanel extends WizardPanel implements ActionListener, ListSel
 
     private void addMapping() {
         CreateColumnMappingPanel createPanel = new CreateColumnMappingPanel(this);
-        if (JOptionPane.showConfirmDialog(this, createPanel, "Zuordnung", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.OK_OPTION) {
+        if (JOptionPane.showConfirmDialog(this, createPanel, Messages.getText("xls2ora.mapping.panel.title"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.OK_OPTION) {
             ColumnMapping columnMapping = new ColumnMapping();
             columnMapping.setTableColumn(createPanel.datbaseColumnComboBox.getSelectedItem().toString());
             columnMapping.setSheetColumn(createPanel.sheetColumnComboBox.getSelectedItem().toString());
@@ -112,7 +113,7 @@ public class MappingPanel extends WizardPanel implements ActionListener, ListSel
     private void addDefaultValue() {
         try {
             CreateColumnDefaultValuePanel createPanel = new CreateColumnDefaultValuePanel(this);
-            if (JOptionPane.showConfirmDialog(this, createPanel, "Zuordnung", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.OK_OPTION) {
+            if (JOptionPane.showConfirmDialog(this, createPanel, Messages.getText("xls2ora.mapping.panel.title"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE) == JOptionPane.OK_OPTION) {
                 ColumnMapping columnMapping = new ColumnMapping();
 
                 ColumnData selectedColumnData = (ColumnData) createPanel.datbaseColumnComboBox.getSelectedItem();
@@ -167,7 +168,7 @@ public class MappingPanel extends WizardPanel implements ActionListener, ListSel
                 }
             }
         } catch (Exception ex) {
-            JXErrorPane.showDialog(null, new ErrorInfo("Zuordnungsfehler!", "Bitte überprüfen sie ihre Angaben zur Quelldatei!", null, null, ex, Level.SEVERE, System.getenv()));
+            JXErrorPane.showDialog(null, new ErrorInfo(Messages.getText("xls2ora.mapping.panel.error.dialog.title"), Messages.getText("xls2ora.mapping.panel.error.dialog.checksource"), null, null, ex, Level.SEVERE, System.getenv()));
             throw new IllegalStateException();
         }
 
@@ -181,14 +182,14 @@ public class MappingPanel extends WizardPanel implements ActionListener, ListSel
             }
         } catch (Exception ex) {
             if (ex.getMessage().startsWith("ORA-00942")) {
-                if (JOptionPane.showConfirmDialog(this, "Tabelle " + super.workflowController.getAttribute("targetTable") + " nicht gefunden, soll die Tabelle erzeugt werden?", "Zieltabelle nicht gefunden!", JOptionPane.ERROR_MESSAGE) == JOptionPane.OK_OPTION) {
+                if (JOptionPane.showConfirmDialog(this, Messages.getText("xls2ora.mapping.panel.error.dialog.tablenotfound"), Messages.getText("xls2ora.mapping.panel.error.dialog.title"), JOptionPane.ERROR_MESSAGE) == JOptionPane.OK_OPTION) {
                     this.createTargetTable();
                     this.prepare();
                 } else {
                     throw new IllegalStateException();
                 }
             } else {
-                JXErrorPane.showDialog(null, new ErrorInfo("Zuordnungsfehler!", "Bitte überprüfen sie ihre Angaben zur Zieldatenbank!", null, null, ex, Level.SEVERE, System.getenv()));
+                JXErrorPane.showDialog(null, new ErrorInfo(Messages.getText("xls2ora.mapping.panel.error.dialog.title"), Messages.getText("xls2ora.mapping.panel.error.dialog.checkdb"), null, null, ex, Level.SEVERE, System.getenv()));
                 throw new IllegalStateException();
             }
         }
@@ -261,7 +262,7 @@ public class MappingPanel extends WizardPanel implements ActionListener, ListSel
                 databaseStmt.execute(createSQL.toString());
             }
         } catch (Exception ex) {
-            JXErrorPane.showDialog(null, new ErrorInfo("Datenbankfehler!", "Tabelle " + super.workflowController.getAttribute("targetTable") + " konnte nicht erzeugt werden.!", null, null, ex, Level.SEVERE, System.getenv()));
+            JXErrorPane.showDialog(null, new ErrorInfo(Messages.getText("xls2ora.mapping.panel.error.dialog.title"), Messages.getText("xls2ora.mapping.panel.error.dialog.tablenotfound"), null, null, ex, Level.SEVERE, System.getenv()));
             throw new IllegalStateException();
         }
     }
@@ -269,7 +270,7 @@ public class MappingPanel extends WizardPanel implements ActionListener, ListSel
     @Override
     public void proceed() {
         if (this.tableModel.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(this, "Bitte ordnen sie mindestes eine Spalte zu!", "Fehler bei der Zuordnung!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, Messages.getText("xls2ora.mapping.panel.error.dialog.mapatleastone"), Messages.getText("xls2ora.mapping.panel.error.dialog.title"), JOptionPane.ERROR_MESSAGE);
             throw new IllegalStateException();
         } else {
             super.workflowController.setAttribute("mapping", this.tableModel.getData());

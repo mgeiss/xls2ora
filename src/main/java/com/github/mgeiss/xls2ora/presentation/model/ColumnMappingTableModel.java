@@ -16,6 +16,7 @@
 package com.github.mgeiss.xls2ora.presentation.model;
 
 import com.github.mgeiss.xls2ora.domain.ColumnMapping;
+import com.github.mgeiss.xls2ora.util.Messages;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -114,13 +115,13 @@ public class ColumnMappingTableModel extends AbstractTableModel {
         String name = null;
         switch (column) {
             case 0:
-                name = "DB-Spalte";
+                name = Messages.getText("xls2ora.columnmapping.tablemodel.dbcolumn");
                 break;
             case 1:
-                name = "Excel-Spalte";
+                name = Messages.getText("xls2ora.columnmapping.tablemodel.excelcolumn");
                 break;
             case 2:
-                name = "Vorgabewert";
+                name = Messages.getText("xls2ora.columnmapping.tablemodel.default");
                 break;
         }
         return name;
