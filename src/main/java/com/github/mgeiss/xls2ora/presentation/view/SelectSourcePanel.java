@@ -106,8 +106,8 @@ public class SelectSourcePanel extends WizardPanel implements ActionListener {
             throw new IllegalStateException();
         }
         try {
-            Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-            Connection connection = DriverManager.getConnection("jdbc:odbc:Driver={Microsoft Excel Driver (*.xls)};DBQ=" + this.fileField.getText());
+            Class.forName("com.googlecode.sqlsheet.Driver");
+            Connection connection = DriverManager.getConnection("jdbc:xls:file:" + this.fileField.getText());
             super.workflowController.setAttribute("sheet", this.sheetField.getText());
             super.workflowController.setAttribute("excelConnection", connection);
         } catch (ClassNotFoundException | SQLException ex) {

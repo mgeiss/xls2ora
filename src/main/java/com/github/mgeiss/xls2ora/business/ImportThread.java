@@ -49,13 +49,13 @@ public class ImportThread extends Thread {
             Connection databaseConnection;
             PreparedStatement dataBaseStatement;
             try (Connection excelConnection = (Connection) this.workflowController.getAttribute("excelConnection"); Statement excelStmt = excelConnection.createStatement()) {
-                try (ResultSet countRset = excelStmt.executeQuery("select count(*) from [" + this.workflowController.getAttribute("sheet") + "$]")) {
+                try (ResultSet countRset = excelStmt.executeQuery("select count(*) from " + this.workflowController.getAttribute("sheet"))) {
                     if (countRset.next()) {
                         this.progressBar.setMaximum(countRset.getInt(1));
                     }
                 }
                 this.progressBar.setStringPainted(true);
-                try (ResultSet rset = excelStmt.executeQuery("select * from [" + this.workflowController.getAttribute("sheet") + "$]")) {
+                try (ResultSet rset = excelStmt.executeQuery("select * from " + this.workflowController.getAttribute("sheet"))) {
                     databaseConnection = (Connection) this.workflowController.getAttribute("databaseConnection");
                     StringBuilder insertSql = new StringBuilder();
                     insertSql.append("insert into ");
