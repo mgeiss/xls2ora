@@ -84,7 +84,7 @@ public class WorkflowController implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setIconImage(new ImageIcon(ClassLoader.getSystemResource("icons/wizard.png")).getImage());
         frame.setContentPane(this.contentContainer);
-        frame.setSize(new Dimension(520, 300));
+        frame.setSize(new Dimension(535, 300));
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);

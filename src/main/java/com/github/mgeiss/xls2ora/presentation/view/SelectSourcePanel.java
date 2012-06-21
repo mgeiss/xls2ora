@@ -123,7 +123,9 @@ public class SelectSourcePanel extends WizardPanel implements ActionListener {
 
             @Override
             public boolean accept(File file) {
-                if (file.isDirectory() || file.getName().toLowerCase().endsWith(".xls")) {
+                if (file.isDirectory() 
+                        || file.getName().toLowerCase().endsWith(".xls")
+                        || file.getName().toLowerCase().endsWith(".xlsx")) {
                     return true;
                 }
                 return false;
