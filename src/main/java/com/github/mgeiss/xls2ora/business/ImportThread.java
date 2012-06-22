@@ -17,6 +17,7 @@ package com.github.mgeiss.xls2ora.business;
 
 import com.github.mgeiss.xls2ora.domain.ColumnMapping;
 import com.github.mgeiss.xls2ora.presentation.control.WorkflowController;
+import com.github.mgeiss.xls2ora.util.Messages;
 import java.awt.HeadlessException;
 import java.sql.*;
 import java.util.List;
@@ -97,10 +98,10 @@ public class ImportThread extends Thread {
             dataBaseStatement.close();
             databaseConnection.close();
 
-            JOptionPane.showMessageDialog(this.progressBar.getParent(), "Import der Daten erfolgreich beendet!");
+            JOptionPane.showMessageDialog(this.progressBar.getParent(), Messages.getText("xls2ora.import.message.successful"));
             System.exit(0);
         } catch (SQLException | HeadlessException ex) {
-            JXErrorPane.showDialog(null, new ErrorInfo("Fehler beim Importieren!", "Es ist ein unerwartet Fehler aufgetreten!", null, null, ex, Level.SEVERE, System.getenv()));
+            JXErrorPane.showDialog(null, new ErrorInfo(Messages.getText("xls2ora.import.message.error.title"), Messages.getText("xls2ora.import.message.error.unexpected"), null, null, ex, Level.SEVERE, System.getenv()));
         }
     }
 }

@@ -17,6 +17,7 @@ package com.github.mgeiss.xls2ora.presentation.view;
 
 import com.github.mgeiss.xls2ora.business.ImportThread;
 import com.github.mgeiss.xls2ora.presentation.control.WorkflowController;
+import com.github.mgeiss.xls2ora.util.Messages;
 import java.awt.*;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -34,7 +35,7 @@ public class StatusPanel extends WizardPanel {
 	private JPanel transferPanel;
     
 	public StatusPanel(WorkflowController workflowController) {
-		super(workflowController, "Import", "Die Daten können nun übertragen werden.", new ImageIcon(ClassLoader.getSystemResource("icons/run.png")));
+		super(workflowController, Messages.getText("xls2ora.status.panel.title"), Messages.getText("xls2ora.status.panel.hint"), new ImageIcon(ClassLoader.getSystemResource("icons/run.png")));
 		this.init();
 	}
 	
@@ -44,7 +45,7 @@ public class StatusPanel extends WizardPanel {
 		this.transferPanel.add(new JLabel(""),
 				new GridBagConstraints(0, 0, 1, 1, 0.00D, 0.30D, GridBagConstraints.WEST, GridBagConstraints.VERTICAL, new Insets(0, 0, 0, 0), 1, 1));
 		
-		JLabel titleLabel = new JLabel("Transferstatus:");
+		JLabel titleLabel = new JLabel(Messages.getText("xls2ora.status.panel.transferstatus"));
 		titleLabel.setFont(titleLabel.getFont().deriveFont(Font.BOLD));
 		this.transferPanel.add(titleLabel,
 				new GridBagConstraints(0, 1, 1, 1, 0.00D, 0.00D, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 1, 1));
