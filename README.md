@@ -10,7 +10,7 @@ importing.
 
 People
 ------
-xls2ora has been written by Markus Geiss (mgeiss257@googlemail.com).
+xls2ora has been written by Markus Geiss (mgeiss257@gmail.com).
 
 Usage
 -----
