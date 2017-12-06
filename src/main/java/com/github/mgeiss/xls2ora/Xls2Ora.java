@@ -19,6 +19,7 @@ import com.github.mgeiss.xls2ora.presentation.control.WorkflowController;
 import com.github.mgeiss.xls2ora.presentation.view.SelectSourcePanel;
 import com.jgoodies.looks.plastic.PlasticLookAndFeel;
 import com.jgoodies.looks.plastic.theme.ExperienceBlue;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
 /**
@@ -36,11 +37,13 @@ public class Xls2Ora {
     }
 
     public static void main(String[] args) {
-        try {
-            PlasticLookAndFeel.setPlasticTheme(new ExperienceBlue());
-            UIManager.setLookAndFeel(new PlasticLookAndFeel());
-        } catch (Exception ex) {
-        }
+        SwingUtilities.invokeAndWait(() -> {
+            try {
+                PlasticLookAndFeel.setPlasticTheme(new ExperienceBlue());
+                UIManager.setLookAndFeel(new PlasticLookAndFeel());
+            } catch (Exception ex) {
+            }
+        });
 
         WorkflowController controller = new WorkflowController();
         controller.setStartPanel(new SelectSourcePanel(controller));
